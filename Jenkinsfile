@@ -1,19 +1,37 @@
 pipeline {
     agent any
-    stages {
-        stage('Build') {
+    stages{
+        stage('start') {
+         
             steps {
-                //取消之前的构建
-                script {
-                    def previousBuild = currentBuild.previousBuild
-                    if (previousBuild != null) {
-                        cancelPreviousBuilds(currentBuild, 1)
-                    }
-                }
-                
-                //继续进行新的构建
-                //...
+                echo "start passed successfully"
             }
+        }
+        stage('compile') {
+          
+            steps {
+                echo "compile passed successfully"   
+            }
+            
+        }
+        stage('deploy') {
+          
+            steps {
+                echo "deploy"    
+            }   
+            
+        }
+    }
+    
+    post {
+        always {
+            echo "This will always run"
+        }
+        success {
+            echo "This will run only if successful"
+        }
+        failure {
+            echo "This will run only if failed"
         }
     }
 }
